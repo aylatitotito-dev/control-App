@@ -1,10 +1,10 @@
 spring:
   datasource:
-    url: ${APPCONTROL_DB_URL}          # ej. jdbc:mysql://<servidor>.mysql.database.azure.com:3306/appcontrol?sslMode=REQUIRED
-    username: ${APPCONTROL_DB_USER}
-    password: ${APPCONTROL_DB_PASSWORD}
+    url: jdbc:postgresql://appcontrol-pg-33986.postgres.database.azure.com:5432/appcontrol?sslmode=require
+    username: acadmin
+    password: "1234"
     hikari:
-      maximum-pool-size: 3             # bajo consumo
+      maximum-pool-size: 3
   jpa:
     hibernate:
       ddl-auto: validate
