@@ -1,14 +1,13 @@
 server:
-  port: ${PORT:8090}
+  port: 8090
 
 spring:
   application:
     name: appcontrol-server
   datasource:
-    # La clave y la direccion de la base NO van en el codigo: se leen del entorno (App Service > Configuracion).
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/appcontrol}
-    username: ${DB_USER:acadmin}
-    password: ${DB_PASSWORD:}
+    url: jdbc:postgresql://appcontrol-pg-33986.postgres.database.azure.com:5432/appcontrol?sslmode=require
+    username: acadmin
+    password: "1234"
   jpa:
     open-in-view: false
     hibernate:
