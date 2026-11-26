@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/appcontrol?createDatabaseIfNotExist=true&serverTimezone=UTC
-    username: ${APPCONTROL_DB_USER:root}
-    password: ${APPCONTROL_DB_PASSWORD:}
+    username: root
+    password: ""
   jpa:
     hibernate:
-      ddl-auto: update   # solo desarrollo local
+      ddl-auto: update
