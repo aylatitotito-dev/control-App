@@ -25,14 +25,29 @@ $mods='java.base,java.desktop,java.net.http,java.sql,java.naming,java.management
   --description "Control de aplicaciones y tiempo" --input target\dist-input --main-jar appcontrol.jar `
   --icon build-tools\appcontrol.ico --license-file build-tools\terminos.rtf --dest dist\installer `
   --win-menu --win-shortcut --win-shortcut-prompt --win-dir-chooser --win-per-user-install --win-menu-group AppControl `
-  --add-modules $mods --java-options '"-Dfile.encoding=UTF-8"'
+  --add-modules $mods --jlink-options "--strip-debug --no-man-pages --no-header-files" --java-options '"-Dfile.encoding=UTF-8"'
 ```
 
+- **No quitar `--jlink-options`**: sin él jpackage borra `java.exe`/`javaw.exe` del Java incluido y la actualización
+  automática falla (`CreateProcess error=2`).
 - Los términos están en `build-tools\make_terminos.py` (texto) → `python -I build-tools\make_terminos.py` regenera `terminos.rtf`.
 - WiX 3.14 sin administrador: `wix314-binaries.zip` (github.com/wixtoolset/wix3, release wix3141rtm, SHA256 6AC824E1642D6F7277D0ED7EA09411A508F6116BA6FAE0AA5F2C7DAA2FF43D31) extraído en `build-tools\wix314\bin`.
 - Antes de reinstalar, cerrar AppControl del todo (icono junto al reloj > Salir, o `build-tools\cerrar-appcontrol.bat`, que también está en `dist\installer`).
   Una copia vieja en segundo plano hace que la nueva solo "traiga al frente" la vieja. Ajustes > Acerca de muestra la fecha de compilación para comprobarlo.
 - Opción de pruebas en el código: `SettingsPageJtMa.CLOSE_EXITS_TEST_DEFAULT_MA` (`false` = cerrar la ventana deja AppControl en segundo plano; `true` = sale del todo).
+
+## Publicar el instalador en GitHub (rama `instalador`)
+
+La rama `instalador` guarda solo el `.exe` y su `README.md` (el código está en `main`). Se trabaja en una carpeta aparte
+(`dist\rama-instalador`, ya creada con `git worktree`; en otra PC:
+`git worktree add dist/rama-instalador instalador`):
+
+1. Copiar el instalador nuevo a `dist\rama-instalador\AppControl-0.0.1.exe`.
+2. Actualizar en su `README.md` la fecha, el tamaño y la huella (`Get-FileHash`).
+3. `git -C dist\rama-instalador add .` , `git -C dist\rama-instalador commit -m "Instalador nuevo"` y
+   `git -C dist\rama-instalador push`.
+
+GitHub no admite archivos de más de 100 MB (hoy pesa 92,6 MB). Si lo supera, usar «Releases» o Git LFS.
 
 ## 2. Windows — carpeta portátil (solo si hace falta)
 
