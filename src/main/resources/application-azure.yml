@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${APPCONTROL_DB_URL}          # ej. jdbc:mysql://<servidor>.mysql.database.azure.com:3306/appcontrol?sslMode=REQUIRED
+    username: ${APPCONTROL_DB_USER}
+    password: ${APPCONTROL_DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 3             # bajo consumo
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+appcontrol:
+  heartbeat:
+    interval-seconds: 120
+  sync:
+    batch-size: 100
+    flush-interval-seconds: 300

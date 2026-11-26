@@ -1,0 +1,47 @@
+# Se vuelve a generar al compilar o empaquetar
+target/
+dist/
+logs/
+*.log
+
+# Binarios de terceros para armar el instalador (se descargan aparte: ver build-tools/EMPAQUETAR.md)
+build-tools/wix314/
+
+# Actualización firmada que va dentro del servidor (se genera con build-tools/preparar_actualizacion.py)
+server/src/main/resources/updates/
+
+# Documentos entregables y notas internas (no forman parte del programa)
+Documetacion/
+overview/
+# Generadores de esos documentos (no hacen falta para compilar ni ejecutar)
+build-tools/generar_*.py
+
+# Herramientas del entorno de trabajo
+.agents/
+.claude/
+.github/
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Python y Windows
+__pycache__/
+*.pyc
+Thumbs.db
+desktop.ini
+~$*
+
+# Secretos: nunca se suben (las llaves reales viven fuera del proyecto, en %APPDATA%\AppControl\secrets)
+.env
+*.env
+application-secret*.yml
+application-*-secret.yml
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+secrets/

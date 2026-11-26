@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: appcontrol
+  task:
+    scheduling:
+      pool:
+        size: 4
+  profiles:
+    default: desktop   # cliente .exe: H2 embebida. 'local' = MySQL de desarrollo
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+server:
+  port: 8080
+  address: 127.0.0.1   # solo local: la app es de escritorio
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+# Ahorro de red / credito Azure for Students
+appcontrol:
+  cloud:
+    url: https://appcontrol-api-50205.azurewebsites.net   # API en Azure (solo grupos; la app funciona sin ella)
+  heartbeat:
+    interval-seconds: 60      # latido prudente
+    miss-threshold: 3         # latidos perdidos antes de alerta de desconexion
+  sync:
+    batch-size: 50            # eventos de uso por envio
+    flush-interval-seconds: 120
